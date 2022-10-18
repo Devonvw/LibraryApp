@@ -11,7 +11,7 @@
 
 <BorderPane fx:id="mainPane" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.eindopdracht.MainController">
    <left>
-      <VBox alignment="TOP_CENTER" prefHeight="199.0" prefWidth="200.0" styleClass="navVbox" BorderPane.alignment="CENTER">
+      <VBox alignment="TOP_CENTER" prefWidth="200.0" styleClass="navVbox" BorderPane.alignment="CENTER">
          <children>
             <Label text="Library ">
                <font>
@@ -23,7 +23,7 @@
             </Label>
             <Button fx:id="lendingRecievingBtn" defaultButton="true" mnemonicParsing="false" onAction="#onClickLendingRecieving" prefHeight="36.0" prefWidth="203.0" style="-fx-background-color: #d1d5db;" styleClass="navBtn" text="Lending/Recieving">
                <graphic>
-                  <FontIcon iconLiteral="fa-exchange" />
+                  <FontIcon iconColor="#0d9488" iconLiteral="fa-exchange" />
                </graphic>
                <cursor>
                   <Cursor fx:constant="HAND" />
@@ -31,7 +31,7 @@
             </Button>
             <Button fx:id="collectionBtn" defaultButton="true" mnemonicParsing="false" onAction="#onClickCollection" prefHeight="36.0" prefWidth="203.0" styleClass="navBtn" text="Collection">
                <graphic>
-                  <FontIcon iconLiteral="fa-th-list" />
+                  <FontIcon iconColor="#0d9488" iconLiteral="fa-th-list" />
                </graphic>
                <cursor>
                   <Cursor fx:constant="HAND" />
@@ -39,7 +39,7 @@
             </Button>
             <Button fx:id="membersBtn" defaultButton="true" mnemonicParsing="false" onAction="#onClickMembers" prefHeight="36.0" prefWidth="203.0" styleClass="navBtn" text="Members">
                <graphic>
-                  <FontIcon iconLiteral="fa-users" />
+                  <FontIcon iconColor="#0d9488" iconLiteral="fa-users" />
                </graphic>
                <cursor>
                   <Cursor fx:constant="HAND" />

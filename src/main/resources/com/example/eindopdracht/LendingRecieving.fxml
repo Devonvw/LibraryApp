@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
@@ -10,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="664.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.eindopdracht.LendingRecievingController">
+<AnchorPane prefHeight="435.0" prefWidth="852.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.eindopdracht.LendingRecievingController">
    <children>
       <Label fx:id="welcomeLbl" layoutX="14.0" layoutY="14.0" prefHeight="47.0" prefWidth="586.0" text="Welcome">
          <font>
@@ -41,6 +42,10 @@
                      </font>
                   </Label>
                   <Button layoutX="28.0" layoutY="236.0" mnemonicParsing="false" onAction="#onLendClick" prefHeight="38.0" prefWidth="73.0" styleClass="saveBtn" text="Lend item" />
+                  <Label fx:id="msgLblLend" layoutX="23.0" layoutY="182.0" prefHeight="26.0" prefWidth="246.0" text="Label">
+                     <padding>
+                        <Insets left="6.0" />
+                     </padding></Label>
                </children>
             </Pane>
             <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white" GridPane.columnIndex="1">
@@ -52,6 +57,10 @@
                      </font>
                   </Label>
                   <Button layoutX="29.0" layoutY="236.0" mnemonicParsing="false" onAction="#onRecieveClick" prefHeight="38.0" prefWidth="90.0" styleClass="saveBtn" text="Recieve item" />
+                  <Label fx:id="msgLblRecieve" layoutX="29.0" layoutY="175.0" prefHeight="26.0" prefWidth="239.0" text="Label">
+                     <padding>
+                        <Insets left="6.0" />
+                     </padding></Label>
                </children>
             </Pane>
          </children>

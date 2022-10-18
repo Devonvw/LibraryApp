@@ -1,14 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.eindopdracht.CollectionController"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="435.0" prefWidth="852.0" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.eindopdracht.CollectionController">
+   <children>
+      <Label fx:id="welcomeLbl" layoutX="24.0" layoutY="24.0" prefHeight="47.0" prefWidth="586.0" text="Collection">
+         <font>
+            <Font name="Segoe UI" size="27.0" />
+         </font>
+      </Label>
+      <TableView fx:id="collectionTbl" layoutX="25.0" layoutY="80.0" prefHeight="314.0" prefWidth="716.0">
+        <columns>
+          <TableColumn fx:id="itemCodeCol" prefWidth="75.0" text="Item code" />
+          <TableColumn fx:id="availableCol" prefWidth="75.0" text="Available" />
+            <TableColumn fx:id="titleCol" prefWidth="310.0" text="Title" />
+            <TableColumn fx:id="authorCol" minWidth="0.0" prefWidth="190.0" text="Author" />
+            <TableColumn fx:id="deleteCol" prefWidth="30.0" />
+            <TableColumn fx:id="editCol" prefWidth="30.0" />
+        </columns>
+      </TableView>
+   </children>
 </AnchorPane>

@@ -1,5 +1,7 @@
 package com.example.eindopdracht.Model;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class Item implements java.io.Serializable, Base {
@@ -9,7 +11,7 @@ public class Item implements java.io.Serializable, Base {
     public Boolean available;
     public String title;
     public String author;
-    public Date lendDate;
+    public LocalDateTime lendDate;
 
     public User lendUser;
 
@@ -39,18 +41,20 @@ public class Item implements java.io.Serializable, Base {
 
     public void lend(User user) {
         setLendUser(user);
-        setLendDate(new Date());
+        setLendDate(LocalDateTime.now());
+        setAvailable(false);
     }
     public void recieve() {
         setLendUser(null);
         setLendDate(null);
+        setAvailable(true);
     }
 
     //Setters
     public void setAvailable(Boolean available) { this.available = available; }
     public void setTitle(String title) { this.title = title; }
     public void setAuthor(String author) { this.author = author; }
-    public void setLendDate(Date lendDate) { this.lendDate = lendDate; }
+    public void setLendDate(LocalDateTime lendDate) { this.lendDate = lendDate; }
     public void setLendUser(User user) { this.lendUser = user; }
     public void setId(int id) { this.id = id; }
 
@@ -58,7 +62,7 @@ public class Item implements java.io.Serializable, Base {
     public Boolean getAvailable() { return available; }
     public String getTitle() { return title; }
     public String getAuthor() { return author; }
-    public Date getLendDate() { return lendDate; }
+    public LocalDateTime getLendDate() { return lendDate; }
     public User getLendUser() { return lendUser; }
     public int getId() { return id; }
 }

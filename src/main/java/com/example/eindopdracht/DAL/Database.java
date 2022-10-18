@@ -3,7 +3,10 @@ package com.example.eindopdracht.DAL;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,11 +23,11 @@ public class Database {
             List<Base> users = new ArrayList<>();
             List<Base> items = new ArrayList<>();
 
-            users.add(new User(1,"Admin", "123"));
-            users.add(new User(2,"Joost", "123"));
+            users.add(new User(1,"Admin", "123", "Admin", "Lastname", LocalDate.now()));
+            users.add(new User(2,"Joost", "123", "Joost", "Smit", LocalDate.now()));
 
             items.add(new Item(1, "Test book 1", "Test author 1"));
-            items.add(new Item(2, "Test book 1", "Test author 1"));
+            items.add(new Item(2, "Test book 2", "Test author 2"));
 
             insert(users, USERS_FILE);
             insert(items, ITEMS_FILE);
@@ -38,10 +41,6 @@ public class Database {
         List<Item> items = loadItems();
 
         Item item = items.stream()
-                .peek(i -> {
-                    System.out.println(i.getId());
-                    System.out.println(i.getTitle());
-                })
                 .filter(i -> i.getId() == itemId)
                 .findFirst().orElse(null);
 
@@ -51,6 +50,7 @@ public class Database {
 
         if (item == null) throw new Exception("Item does not exist");
         if (user == null) throw new Exception("User does not exist");
+        if (!item.available) throw new Exception("Item is already lent");
 
         item.lend(user);
 
@@ -58,31 +58,25 @@ public class Database {
         for(Item i: items) itemsInput.add(i);
 
         update(itemsInput, item, ITEMS_FILE);
-
-        System.out.println(item.getId());
-        System.out.println("Gelukt");
     }
 
     public static void recieveItem(int itemId) throws Exception {
         List<Item> items = loadItems();
 
-        Optional<Item> item = items.stream()
-                .peek(i -> {
-                    System.out.println(i.getId());
-                    System.out.println(i.getTitle());
-                })
+        Item item = items.stream()
                 .filter(i -> i.getId() == itemId)
-                .findFirst();
+                .findFirst().orElse(null);
 
-        if (!item.isPresent()) throw new Exception("Item does not exist");
+        if (item == null) throw new Exception("Item does not exist");
+        if (item.available) throw new Exception("Item is already recieved");
+        if (item.lendDate.isBefore(LocalDateTime.now().minusDays(21))) throw new Exception("Item is received too late");
 
-        Item updatedItem = new Item(item.get());
-        updatedItem.recieve();
+        item.recieve();
 
         List<Base> itemsInput = new ArrayList<>();
         for(Item i: items) itemsInput.add(i);
 
-        update(itemsInput, updatedItem, ITEMS_FILE);
+        update(itemsInput, item, ITEMS_FILE);
     }
 
     public static User getLoggedInUser() throws Exception {

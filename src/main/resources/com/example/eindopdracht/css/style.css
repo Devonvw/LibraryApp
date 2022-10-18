@@ -15,3 +15,7 @@
     -fx-text-fill: white;
     -fx-background-color: #0d9488;
 }
+
+.iconBtn {
+    -fx-background-color: transparent;
+}
