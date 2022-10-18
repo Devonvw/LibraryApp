@@ -1,0 +1,17 @@
+.navBtn {
+    -fx-text-align: LEFT;
+    -fx-alignment: center-left;
+    -fx-background-color: #e5e7eb;
+}
+.navVbox {
+    -fx-background-color: #e5e7eb;
+
+}
+.navBtn:hover {
+    -fx-background-color: #f3f4f6;
+}
+
+.saveBtn {
+    -fx-text-fill: white;
+    -fx-background-color: #0d9488;
+}

@@ -30,19 +30,17 @@ public class LoginController {
 
     public void onLoginButtonClick(ActionEvent e) {
         try {
-            User user = database.login(new User(usernameInput.getText(), passwordInput.getText()));
+            database.login(new User(usernameInput.getText(), passwordInput.getText()));
 
             Stage loginStage = (Stage)msgLabel.getScene().getWindow();
             loginStage.close();
 
+            //Load main window
             Stage mainStage = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("Main.fxml"));
             mainStage.setScene(new Scene(root));
             mainStage.show();
-
         } catch (Exception ex) {
-            System.out.println(ex);
-
             msgLabel.setText(ex.getMessage());
         }
     }

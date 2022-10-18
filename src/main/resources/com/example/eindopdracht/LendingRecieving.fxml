@@ -1,14 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.eindopdracht.LendingRecieving"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="400.0" prefWidth="664.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.eindopdracht.LendingRecievingController">
+   <children>
+      <Label fx:id="welcomeLbl" layoutX="14.0" layoutY="14.0" prefHeight="47.0" prefWidth="586.0" text="Welcome">
+         <font>
+            <Font name="Segoe UI" size="27.0" />
+         </font>
+      </Label>
+      <GridPane hgap="20.0" layoutX="35.0" layoutY="74.0" prefHeight="294.0" prefWidth="586.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="405.0" minWidth="10.0" prefWidth="293.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="323.0" minWidth="10.0" prefWidth="293.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white">
+               <children>
+                  <TextField fx:id="itemCodeLendInput" layoutX="23.0" layoutY="47.0" prefHeight="26.0" prefWidth="246.0" />
+                  <TextField fx:id="memberIdLendInput" layoutX="23.0" layoutY="121.0" prefHeight="26.0" prefWidth="246.0" />
+                  <Label layoutX="23.0" layoutY="30.0" text="Item code">
+                     <font>
+                        <Font name="Segoe UI Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="23.0" layoutY="97.0" text="Member identifier">
+                     <font>
+                        <Font name="Segoe UI Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Button layoutX="28.0" layoutY="236.0" mnemonicParsing="false" onAction="#onLendClick" prefHeight="38.0" prefWidth="73.0" styleClass="saveBtn" text="Lend item" />
+               </children>
+            </Pane>
+            <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white" GridPane.columnIndex="1">
+               <children>
+                  <TextField fx:id="itemCodeRecieveInput" layoutX="24.0" layoutY="48.0" prefHeight="26.0" prefWidth="246.0" />
+                  <Label layoutX="24.0" layoutY="31.0" text="Item code">
+                     <font>
+                        <Font name="Segoe UI Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Button layoutX="29.0" layoutY="236.0" mnemonicParsing="false" onAction="#onRecieveClick" prefHeight="38.0" prefWidth="90.0" styleClass="saveBtn" text="Recieve item" />
+               </children>
+            </Pane>
+         </children>
+      </GridPane>
+   </children>
 </AnchorPane>
