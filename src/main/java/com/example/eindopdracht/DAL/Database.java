@@ -127,6 +127,7 @@ public class Database {
             while (true) objects.add(in.readObject());
         } catch (EOFException ex) {}
         catch (Exception ex) {
+            System.out.println(ex.getMessage());
             throw new Exception("Not able to load objects");
         }
 

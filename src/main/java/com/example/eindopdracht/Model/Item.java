@@ -1,5 +1,8 @@
 package com.example.eindopdracht.Model;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -12,7 +15,6 @@ public class Item implements java.io.Serializable, Base {
     public String title;
     public String author;
     public LocalDateTime lendDate;
-
     public User lendUser;
 
     public Item(Item item) {
@@ -23,8 +25,14 @@ public class Item implements java.io.Serializable, Base {
         item.setLendDate(getLendDate());
         item.setLendUser(getLendUser());
     }
+
+    public Item() {
+        setId(0);
+        setAvailable(true);
+    }
     public Item(int id) {
         setId(id);
+        setAvailable(true);
     }
     public Item(String title, String author) {
         setId(0);
@@ -49,6 +57,8 @@ public class Item implements java.io.Serializable, Base {
         setLendDate(null);
         setAvailable(true);
     }
+
+
 
     //Setters
     public void setAvailable(Boolean available) { this.available = available; }

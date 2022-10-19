@@ -1,9 +1,12 @@
 package com.example.eindopdracht;
 
 import com.example.eindopdracht.DAL.Database;
+import com.example.eindopdracht.Model.DialogMode;
 import com.example.eindopdracht.Model.Item;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
 import javafx.scene.control.*;
@@ -13,7 +16,9 @@ import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.net.URL;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
+
 
 public class CollectionController implements Initializable {
     @FXML
@@ -37,9 +42,14 @@ public class CollectionController implements Initializable {
     @FXML
     private Label welcomeLbl;
 
+    @FXML
+    private Button addBtn;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
+            addBtn.setOnAction(e -> onAddUpdateClick(e, new Item()));
+
             List<Item> items = Database.loadItems();
             availableCol.setCellFactory(tc -> new TableCell<Item, Boolean>() {
                 @Override
@@ -92,6 +102,7 @@ public class CollectionController implements Initializable {
                         btn.setOnAction(e -> {
                             Item itemClicked = getTableView().getItems().get(getIndex());
                             System.out.println(itemClicked.getTitle());
+                            onAddUpdateClick(e, itemClicked);
                         });
                         setGraphic(btn);
                         setText(null);
@@ -108,7 +119,46 @@ public class CollectionController implements Initializable {
 
             collectionTbl.setItems(FXCollections.observableArrayList(items));
         } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
 
+    public void onAddUpdateClick(ActionEvent e, Item item) {
+        DialogMode mode;
+        String dialogTitle = "";
+
+        if (e.getSource().equals(addBtn)) {
+            mode = DialogMode.ADD;
+            dialogTitle = "Add item";
+        }
+        else {
+            mode = DialogMode.UPDATE;
+            dialogTitle = "Update item";
+        }
+
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("CollectionModal.fxml"));
+            DialogPane modal = loader.load();
+
+            CollectionModalController modalController = loader.getController();
+            modalController.setItem(item, mode);
+
+            Dialog<ButtonType> dialog = new Dialog<>();
+            dialog.setDialogPane(modal);
+            dialog.setTitle(dialogTitle);
+
+            Optional<ButtonType> clickedBtn = dialog.showAndWait();
+
+            if (clickedBtn.get() == ButtonType.OK) {
+                if (mode == DialogMode.ADD){
+                    //Add item
+                } else {
+                    //Update item
+                }
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
         }
     }
 }
