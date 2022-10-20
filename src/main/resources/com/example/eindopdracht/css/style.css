@@ -1,19 +1,36 @@
 .navBtn {
     -fx-text-align: LEFT;
     -fx-alignment: center-left;
-    -fx-background-color: #e5e7eb;
+    -fx-background-color: transparent;
+    -fx-background-radius: 0px;
+    -fx-cursor: hand;
+    -fx-text-fill: white;
 }
 .navVbox {
-    -fx-background-color: #e5e7eb;
-
+    -fx-background-color: rgba(13, 148, 136, 1);
 }
+
+.navVbox .label {
+    -fx-text-fill: white;
+}
+
 .navBtn:hover {
-    -fx-background-color: #f3f4f6;
+    -fx-background-color: white !important;
+    -fx-text-fill: #0d9488 !important;
+}
+
+.navBtn:hover .navBtnIcon {
+    -fx-icon-color: #0d9488 !important;
 }
 
 .saveBtn {
     -fx-text-fill: white;
     -fx-background-color: #0d9488;
+    -fx-background-radius: 10px;
+    -fx-cursor: hand;
+}
+.saveBtn:hover {
+    -fx-font-weight: bold;
 }
 
 .outlineBtn {
@@ -21,10 +38,38 @@
     -fx-border-color: white;
     -fx-border-radius: 10px;
     -fx-background-color: #0d9488;
+    -fx-cursor: hand;
+}
+
+.outlineBtn:hover {
+    -fx-font-weight: bold;
+}
+
+.outlinePrimaryBtn {
+    -fx-text-fill: #0d9488;
+    -fx-border-color: #0d9488;
+    -fx-border-radius: 10px;
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+}
+
+.outlinePrimaryBtn:hover {
+    -fx-font-weight: bold;
+}
+
+.whiteBtn {
+    -fx-text-fill: #0d9488;
+    -fx-background-color: white;
+    -fx-background-radius: 10px;
+    -fx-cursor: hand;
+}
+.whiteBtn:hover {
+    -fx-font-weight: bold;
 }
 
 .iconBtn {
     -fx-background-color: transparent;
+    -fx-cursor: hand;
 }
 
 .table-view {

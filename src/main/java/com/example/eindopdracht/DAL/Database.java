@@ -21,7 +21,7 @@ public class Database {
 
     public Database() {
         try {
-            List<Base> users = new ArrayList<>();
+            /*List<Base> users = new ArrayList<>();
             List<Base> items = new ArrayList<>();
 
             users.add(new User(1,"Admin", "123", "Admin", "Lastname", LocalDate.now()));
@@ -31,7 +31,7 @@ public class Database {
             items.add(new Item(2, "Test book 2", "Test author 2"));
 
             insert(users, USERS_FILE);
-            insert(items, ITEMS_FILE);
+            insert(items, ITEMS_FILE);*/
         } catch (Exception ex) {
             System.out.println("error");
             System.out.println(ex.getMessage());

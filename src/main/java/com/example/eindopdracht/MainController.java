@@ -24,17 +24,17 @@ public class MainController {
 
     public void onClickLendingRecieving(ActionEvent e) {
         resetButtons();
-        lendingRecievingBtn.setStyle("-fx-background-color: #d1d5db;");
+        lendingRecievingBtn.setStyle("-fx-background-color: white; -fx-text-fill: #0d9488;");
         LoadScene(getClass().getResource("LendingRecieving.fxml"));
     }
     public void onClickCollection(ActionEvent e) {
         resetButtons();
-        collectionBtn.setStyle("-fx-background-color: #d1d5db;");
+        collectionBtn.setStyle("-fx-background-color: white; -fx-text-fill: #0d9488;");
         LoadScene(getClass().getResource("Collection.fxml"));
     }
     public void onClickMembers(ActionEvent e) {
         resetButtons();
-        membersBtn.setStyle("-fx-background-color: #d1d5db;");
+        membersBtn.setStyle("-fx-background-color: white; -fx-text-fill: #0d9488;");
         LoadScene(getClass().getResource("Members.fxml"));
     }
     private void resetButtons(){
