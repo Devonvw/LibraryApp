@@ -37,8 +37,6 @@ public class CollectionModalController implements Initializable {
                 e.consume();
             }
             else {
-                //Get highest id
-                if (mode == DialogMode.UPDATE) this.item.setId(999);
                 this.item.setTitle(titleInput.getText());
                 this.item.setAuthor(authorInput.getText());
             }

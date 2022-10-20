@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import com.example.eindopdracht.Model.*;
 
@@ -166,7 +167,16 @@ public class Database {
 
         insert(oldData, fileName);
     }
+    public static void updateItem(List<Item> data, Item newData) throws Exception {
+        List<Base> dataBase = new ArrayList<>(data);
 
+        update(dataBase, newData, ITEMS_FILE);
+    }
+    public static void updateUser(List<User> data, User newData) throws Exception {
+        List<Base> dataBase = new ArrayList<>(data);
+
+        update(dataBase, newData, USERS_FILE);
+    }
     private static void update(List<Base> data, Base newData, String fileName) throws Exception {
         for (int i = 0; i < data.stream().count(); i++) {
             if (data.get(i).getId() == newData.getId()) {
@@ -174,7 +184,49 @@ public class Database {
                 break;
             }
         }
+        insert(data, fileName);
+    }
 
+    public static void insertItemWithoutId(List<Item> data, Item newData) throws Exception {
+        List<Base> dataBase = new ArrayList<>(data);
+
+        insertNewWithoutId(dataBase, newData, ITEMS_FILE);
+    }
+    public static void insertUserWithoutId(List<User> data, User newData) throws Exception {
+        List<Base> dataBase = new ArrayList<>(data);
+
+        insertNewWithoutId(dataBase, newData, USERS_FILE);
+    }
+    public static void insertNewWithoutId(List<Base> data, Base newData, String fileName) throws Exception {
+        int highestId = 0;
+        for (int i = 0; i < data.stream().count(); i++) {
+            if (data.get(i).getId() > highestId) {
+                highestId = data.get(i).getId();
+            }
+        }
+        newData.setId(highestId + 1);
+        data.add(newData);
+
+        insert(data, fileName);
+    }
+
+    public static void deleteItem(List<Item> data, int id) throws Exception {
+        List<Base> dataBase = new ArrayList<>(data);
+
+        delete(dataBase, id, ITEMS_FILE);
+    }
+    public static void deleteUser(List<User> data, int id) throws Exception {
+        List<Base> dataBase = new ArrayList<>(data);
+
+        delete(dataBase, id, USERS_FILE);
+    }
+    public static void delete(List<Base> data, int id, String fileName) throws Exception {
+        for (int i = 0; i < data.stream().count(); i++) {
+            if (data.get(i).getId() == id) {
+                data.remove(i);
+                break;
+            }
+        }
         insert(data, fileName);
     }
 }

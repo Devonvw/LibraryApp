@@ -4,6 +4,7 @@ import com.example.eindopdracht.DAL.Database;
 import com.example.eindopdracht.Model.DialogMode;
 import com.example.eindopdracht.Model.Item;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,6 +19,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 
 public class CollectionController implements Initializable {
@@ -41,16 +43,32 @@ public class CollectionController implements Initializable {
     private TableColumn<Item, String> editCol;
     @FXML
     private Label welcomeLbl;
-
+    @FXML
+    private TextField searchInput;
     @FXML
     private Button addBtn;
+
+    private List<Item> items;
+    public final ObservableList<Item> itemsObservableArray = FXCollections.observableArrayList();
+
+    public CollectionController() {
+        try {
+            items = Database.loadItems();
+            itemsObservableArray.setAll(FXCollections.observableArrayList(items));
+        } catch (Exception ex) {
+
+        }
+    }
+
+    public ObservableList<Item> getItemsObservableArray() {
+        return itemsObservableArray;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
             addBtn.setOnAction(e -> onAddUpdateClick(e, new Item()));
 
-            List<Item> items = Database.loadItems();
             availableCol.setCellFactory(tc -> new TableCell<Item, Boolean>() {
                 @Override
                 protected void updateItem(Boolean item, boolean empty) {
@@ -76,8 +94,14 @@ public class CollectionController implements Initializable {
                         btn.getStyleClass().add("iconBtn");
                         btn.setCursor(Cursor.HAND);
                         btn.setOnAction(e -> {
-                            Item itemClicked = getTableView().getItems().get(getIndex());
-                            System.out.println(itemClicked.getTitle());
+                            try {
+                                Item itemClicked = getTableView().getItems().get(getIndex());
+                                Database.deleteItem(items, itemClicked.getId());
+
+                                items = Database.loadItems();
+                                itemsObservableArray.setAll(FXCollections.observableArrayList(items));
+                            }
+                            catch (Exception ex) {}
                         });
                         setGraphic(btn);
                         setText(null);
@@ -117,7 +141,9 @@ public class CollectionController implements Initializable {
             deleteCol.setCellValueFactory(new PropertyValueFactory<>(""));
             editCol.setCellValueFactory(new PropertyValueFactory<>(""));
 
-            collectionTbl.setItems(FXCollections.observableArrayList(items));
+            searchInput.textProperty().addListener((obs, oldText, newText) -> {
+                itemsObservableArray.setAll(items.stream().filter(i -> i.getTitle().toLowerCase().contains(newText.toLowerCase()) || i.getAuthor().toLowerCase().contains(newText.toLowerCase())).collect(Collectors.toList()));
+            });
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
@@ -127,7 +153,7 @@ public class CollectionController implements Initializable {
         DialogMode mode;
         String dialogTitle = "";
 
-        if (e.getSource().equals(addBtn)) {
+        if (item.getId() == 0) {
             mode = DialogMode.ADD;
             dialogTitle = "Add item";
         }
@@ -151,11 +177,11 @@ public class CollectionController implements Initializable {
             Optional<ButtonType> clickedBtn = dialog.showAndWait();
 
             if (clickedBtn.get() == ButtonType.OK) {
-                if (mode == DialogMode.ADD){
-                    //Add item
-                } else {
-                    //Update item
-                }
+                if (mode == DialogMode.ADD) Database.insertItemWithoutId(items, modalController.item);
+                else Database.updateItem(items, modalController.item);
+
+                items = Database.loadItems();
+                itemsObservableArray.setAll(FXCollections.observableArrayList(items));
             }
         } catch (Exception ex) {
             System.out.println(ex.getMessage());

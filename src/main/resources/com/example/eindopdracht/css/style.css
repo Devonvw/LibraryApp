@@ -16,6 +16,13 @@
     -fx-background-color: #0d9488;
 }
 
+.outlineBtn {
+    -fx-text-fill: white;
+    -fx-border-color: white;
+    -fx-border-radius: 10px;
+    -fx-background-color: #0d9488;
+}
+
 .iconBtn {
     -fx-background-color: transparent;
 }
@@ -63,11 +70,13 @@
     -fx-background-color: rgba(13, 148, 136, 0.3) !important;
 }
 .table-row-cell:odd{
+    -fx-min-height: 34px;
     -fx-background-color: #e2e8f0;
     -fx-background-insets: 0 11px 0 0;
     -fx-padding: 0.0em;
 }
 .table-row-cell:even{
+    -fx-min-height: 34px;
     -fx-background-color: #f1f5f9;
     -fx-background-insets: 0 11px 0 0;
     -fx-padding: 0.0em;
@@ -80,4 +89,8 @@
 .table-view .virtual-flow .scroll-bar:horizontal .track,
 .table-view .virtual-flow .scroll-bar:horizontal .track-background {
     -fx-background-color: transparent;
+}
+
+.bg-primary {
+    -fx-background-color:#0d9488;
 }

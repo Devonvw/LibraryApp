@@ -1,10 +1,14 @@
 package com.example.eindopdracht;
 
 import com.example.eindopdracht.DAL.Database;
+import com.example.eindopdracht.Model.DialogMode;
 import com.example.eindopdracht.Model.Item;
 import com.example.eindopdracht.Model.User;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
 import javafx.scene.control.*;
@@ -16,7 +20,9 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class MembersController implements Initializable {
     @FXML
@@ -35,12 +41,30 @@ public class MembersController implements Initializable {
     private TableColumn<User, String> editCol;
     @FXML
     private Label welcomeLbl;
+    @FXML
+    private TextField searchInput;
+    @FXML
+    private Button addBtn;
 
+    private List<User> users;
+    public final ObservableList<User> usersObservableArray = FXCollections.observableArrayList();
+
+    public MembersController() {
+        try {
+            users = Database.loadUsers();
+            usersObservableArray.setAll(FXCollections.observableArrayList(users));
+        } catch (Exception ex) {
+
+        }
+    }
+
+    public ObservableList<User> getUsersObservableArray() {
+        return usersObservableArray;
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            List<User> users = Database.loadUsers();
-
+            addBtn.setOnAction(e -> onAddUpdateClick(e, new User()));
             deleteCol.setCellFactory(tc -> new TableCell<User, String>() {
                 final Button btn = new Button("");
                 final FontIcon icon = new FontIcon();
@@ -57,8 +81,14 @@ public class MembersController implements Initializable {
                         btn.getStyleClass().add("iconBtn");
                         btn.setCursor(Cursor.HAND);
                         btn.setOnAction(e -> {
-                            User itemClicked = getTableView().getItems().get(getIndex());
-                            System.out.println(itemClicked.getUsername());
+                            try {
+                                User userClicked = getTableView().getItems().get(getIndex());
+                                Database.deleteUser(users, userClicked.getId());
+
+                                users = Database.loadUsers();
+                                usersObservableArray.setAll(FXCollections.observableArrayList(users));
+                            }
+                            catch (Exception ex) {}
                         });
                         setGraphic(btn);
                         setText(null);
@@ -81,8 +111,8 @@ public class MembersController implements Initializable {
                         btn.getStyleClass().add("iconBtn");
                         btn.setCursor(Cursor.HAND);
                         btn.setOnAction(e -> {
-                            User itemClicked = getTableView().getItems().get(getIndex());
-                            System.out.println(itemClicked.getUsername());
+                            User userClicked = getTableView().getItems().get(getIndex());
+                            onAddUpdateClick(e, userClicked);
                         });
                         setGraphic(btn);
                         setText(null);
@@ -97,9 +127,49 @@ public class MembersController implements Initializable {
             deleteCol.setCellValueFactory(new PropertyValueFactory<>(""));
             editCol.setCellValueFactory(new PropertyValueFactory<>(""));
 
-            membersTbl.setItems(FXCollections.observableArrayList(users));
+            searchInput.textProperty().addListener((obs, oldText, newText) -> {
+                usersObservableArray.setAll(users.stream().filter(i -> i.getFirstname().toLowerCase().contains(newText.toLowerCase()) || i.getLastname().toLowerCase().contains(newText.toLowerCase())).collect(Collectors.toList()));
+            });
         } catch (Exception ex) {
 
+        }
+    }
+    public void onAddUpdateClick(ActionEvent e, User user) {
+        DialogMode mode;
+        String dialogTitle = "";
+
+        if (user.getId() == 0) {
+            mode = DialogMode.ADD;
+            dialogTitle = "Add user";
+        }
+        else {
+            mode = DialogMode.UPDATE;
+            dialogTitle = "Update user";
+        }
+
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("MembersModal.fxml"));
+            DialogPane modal = loader.load();
+
+            MembersModalController modalController = loader.getController();
+            modalController.setUser(user, mode);
+
+            Dialog<ButtonType> dialog = new Dialog<>();
+            dialog.setDialogPane(modal);
+            dialog.setTitle(dialogTitle);
+
+            Optional<ButtonType> clickedBtn = dialog.showAndWait();
+
+            if (clickedBtn.get() == ButtonType.OK) {
+                if (mode == DialogMode.ADD) Database.insertUserWithoutId(users, modalController.user);
+                else Database.updateUser(users, modalController.user);
+
+                users = Database.loadUsers();
+                usersObservableArray.setAll(FXCollections.observableArrayList(users));
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
         }
     }
 }

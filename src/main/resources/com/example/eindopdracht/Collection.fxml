@@ -5,18 +5,19 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane prefHeight="435.0" prefWidth="852.0" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.eindopdracht.CollectionController">
+<AnchorPane prefHeight="500.0" prefWidth="854.0" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.eindopdracht.CollectionController">
    <children>
-      <Label fx:id="welcomeLbl" layoutX="25.0" layoutY="25.0" prefHeight="47.0" prefWidth="586.0" text="Collection">
+      <Label fx:id="welcomeLbl" layoutX="51.0" layoutY="25.0" prefHeight="47.0" prefWidth="586.0" text="Collection">
          <font>
-            <Font name="Segoe UI" size="27.0" />
+            <Font name="Segoe UI Bold" size="27.0" />
          </font>
       </Label>
-      <TableView fx:id="collectionTbl" layoutX="25.0" layoutY="72.0" prefHeight="314.0" prefWidth="740.0">
+      <TableView fx:id="collectionTbl" items="${controller.itemsObservableArray}" layoutX="51.0" layoutY="129.0" prefHeight="314.0" prefWidth="740.0">
         <columns>
           <TableColumn fx:id="itemCodeCol" prefWidth="75.0" text="Item code" />
           <TableColumn fx:id="availableCol" prefWidth="75.0" text="Available" />
@@ -26,9 +27,9 @@
             <TableColumn fx:id="editCol" prefWidth="30.0" />
         </columns>
       </TableView>
-      <Button fx:id="addBtn" layoutX="715.0" layoutY="37.0" mnemonicParsing="false" styleClass="iconBtn">
+      <Button fx:id="addBtn" layoutX="757.0" layoutY="85.0" mnemonicParsing="false" styleClass="iconBtn">
          <graphic>
-            <FontIcon iconColor="#0d9488" iconLiteral="fa-plus">
+            <FontIcon iconLiteral="fa-plus">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -38,5 +39,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
+      <TextField fx:id="searchInput" layoutX="81.0" layoutY="84.0" prefHeight="25.0" prefWidth="310.0" promptText="Search..." />
+      <FontIcon iconLiteral="fa-search" layoutX="59.0" layoutY="101.0" />
    </children>
 </AnchorPane>

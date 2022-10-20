@@ -13,14 +13,19 @@ public class User implements java.io.Serializable, Base {
     public String lastname;
     public LocalDate birthdate;
 
+    public User() {
+        setId(0);
+    }
     public User(int id) {
         setId(id);
     }
     public User(String username, String password) {
+        setId(0);
         setUsername(username);
         setPassword(password);
     }
     public User(String username, String password, String firstname, String lastname, LocalDate birthdate) {
+        setId(0);
         setUsername(username);
         setPassword(password);
         setFirstname(firstname);
