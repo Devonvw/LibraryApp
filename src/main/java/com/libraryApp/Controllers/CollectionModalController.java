@@ -1,7 +1,7 @@
-package com.example.eindopdracht;
+package com.libraryApp.Controllers;
 
-import com.example.eindopdracht.Model.DialogMode;
-import com.example.eindopdracht.Model.Item;
+import com.libraryApp.Model.Item;
+import com.libraryApp.Model.DialogMode;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

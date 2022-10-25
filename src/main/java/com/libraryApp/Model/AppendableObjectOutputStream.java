@@ -1,4 +1,4 @@
-package com.example.eindopdracht.Model;
+package com.libraryApp.Model;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;

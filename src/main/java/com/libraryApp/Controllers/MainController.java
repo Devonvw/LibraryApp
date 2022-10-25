@@ -1,4 +1,4 @@
-package com.example.eindopdracht;
+package com.libraryApp.Controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -25,17 +25,17 @@ public class MainController {
     public void onClickLendingRecieving(ActionEvent e) {
         resetButtons();
         lendingRecievingBtn.setStyle("-fx-background-color: white; -fx-text-fill: #0d9488;");
-        LoadScene(getClass().getResource("LendingRecieving.fxml"));
+        LoadScene(getClass().getResource("/com/libraryApp/LendingRecieving.fxml"));
     }
     public void onClickCollection(ActionEvent e) {
         resetButtons();
         collectionBtn.setStyle("-fx-background-color: white; -fx-text-fill: #0d9488;");
-        LoadScene(getClass().getResource("Collection.fxml"));
+        LoadScene(getClass().getResource("/com/libraryApp/Collection.fxml"));
     }
     public void onClickMembers(ActionEvent e) {
         resetButtons();
         membersBtn.setStyle("-fx-background-color: white; -fx-text-fill: #0d9488;");
-        LoadScene(getClass().getResource("Members.fxml"));
+        LoadScene(getClass().getResource("/com/libraryApp/Members.fxml"));
     }
     private void resetButtons(){
         membersBtn.setStyle("");

@@ -1,4 +1,4 @@
-package com.example.eindopdracht.Model;
+package com.libraryApp.Model;
 
 public interface Base {
     public int getId();

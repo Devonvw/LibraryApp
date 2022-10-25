@@ -1,7 +1,7 @@
-package com.example.eindopdracht;
+package com.libraryApp.Controllers;
 
-import com.example.eindopdracht.DAL.Database;
-import com.example.eindopdracht.Model.User;
+import com.libraryApp.DAL.Database;
+import com.libraryApp.Model.User;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -9,7 +9,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.net.URL;

@@ -1,8 +1,8 @@
-package com.example.eindopdracht;
+package com.libraryApp.Controllers;
 
-import com.example.eindopdracht.DAL.Database;
-import com.example.eindopdracht.Model.DialogMode;
-import com.example.eindopdracht.Model.Item;
+import com.libraryApp.Model.Item;
+import com.libraryApp.DAL.Database;
+import com.libraryApp.Model.DialogMode;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -164,7 +164,7 @@ public class CollectionController implements Initializable {
 
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("CollectionModal.fxml"));
+            loader.setLocation(getClass().getResource("/com/libraryApp/CollectionModal.fxml"));
             DialogPane modal = loader.load();
 
             CollectionModalController modalController = loader.getController();

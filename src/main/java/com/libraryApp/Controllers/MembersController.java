@@ -1,9 +1,8 @@
-package com.example.eindopdracht;
+package com.libraryApp.Controllers;
 
-import com.example.eindopdracht.DAL.Database;
-import com.example.eindopdracht.Model.DialogMode;
-import com.example.eindopdracht.Model.Item;
-import com.example.eindopdracht.Model.User;
+import com.libraryApp.DAL.Database;
+import com.libraryApp.Model.DialogMode;
+import com.libraryApp.Model.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,7 +17,6 @@ import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.net.URL;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -149,7 +147,7 @@ public class MembersController implements Initializable {
 
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("MembersModal.fxml"));
+            loader.setLocation(getClass().getResource("/com/libraryApp/MembersModal.fxml"));
             DialogPane modal = loader.load();
 
             MembersModalController modalController = loader.getController();

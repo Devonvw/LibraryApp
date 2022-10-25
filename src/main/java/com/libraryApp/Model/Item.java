@@ -1,11 +1,6 @@
-package com.example.eindopdracht.Model;
+package com.libraryApp.Model;
 
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 public class Item implements java.io.Serializable, Base {
     private static final long serialVersionUID = 1L;

@@ -1,7 +1,7 @@
-package com.example.eindopdracht;
+package com.libraryApp.Controllers;
 
-import com.example.eindopdracht.DAL.Database;
-import com.example.eindopdracht.Model.User;
+import com.libraryApp.DAL.Database;
+import com.libraryApp.Model.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -37,10 +37,11 @@ public class LoginController {
 
             //Load main window
             Stage mainStage = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("Main.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/com/libraryApp/Main.fxml"));
             mainStage.setScene(new Scene(root));
             mainStage.show();
         } catch (Exception ex) {
+            System.out.println(ex.getMessage());
             msgLabel.setText(ex.getMessage());
         }
     }

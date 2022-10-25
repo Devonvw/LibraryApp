@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<BorderPane fx:id="mainPane" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.eindopdracht.MainController">
+<BorderPane fx:id="mainPane" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.libraryApp.Controllers.MainController">
    <left>
       <VBox alignment="TOP_CENTER" prefWidth="200.0" styleClass="navVbox" BorderPane.alignment="CENTER">
          <children>

@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane prefHeight="500.0" prefWidth="852.0" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.eindopdracht.MembersController">
+<AnchorPane prefHeight="500.0" prefWidth="852.0" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.libraryApp.Controllers.MembersController">
    <children>
       <Label fx:id="welcomeLbl" layoutX="43.0" layoutY="26.0" prefHeight="47.0" prefWidth="586.0" text="Members">
          <font>

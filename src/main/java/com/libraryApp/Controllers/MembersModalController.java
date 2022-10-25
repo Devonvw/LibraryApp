@@ -1,16 +1,12 @@
-package com.example.eindopdracht;
+package com.libraryApp.Controllers;
 
-import com.example.eindopdracht.Model.DialogMode;
-import com.example.eindopdracht.Model.Item;
-import com.example.eindopdracht.Model.User;
-import com.example.eindopdracht.Model.UserFeedback;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
+import com.libraryApp.Model.DialogMode;
+import com.libraryApp.Model.User;
+import com.libraryApp.Model.UserFeedback;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.util.Duration;
 
 import java.net.URL;
 import java.util.ResourceBundle;

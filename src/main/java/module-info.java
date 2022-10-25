@@ -1,4 +1,4 @@
-module com.example.eindopdracht {
+module com.libraryApp {
     requires javafx.controls;
     requires javafx.fxml;
 
@@ -7,10 +7,12 @@ module com.example.eindopdracht {
     requires net.synedra.validatorfx;
     requires org.kordamp.ikonli.javafx;
 
-    opens com.example.eindopdracht to javafx.fxml;
-    opens com.example.eindopdracht.Model to javafx.fxml;
+    opens com.libraryApp to javafx.fxml;
+    opens com.libraryApp.Model to javafx.fxml;
 
-    exports com.example.eindopdracht;
-    exports com.example.eindopdracht.Model;
+    exports com.libraryApp;
+    exports com.libraryApp.Model;
+    exports com.libraryApp.Controllers;
+    opens com.libraryApp.Controllers to javafx.fxml;
 
 }

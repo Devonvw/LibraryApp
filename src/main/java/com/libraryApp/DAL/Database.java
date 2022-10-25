@@ -1,4 +1,4 @@
-package com.example.eindopdracht.DAL;
+package com.libraryApp.DAL;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -6,12 +6,12 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
-import com.example.eindopdracht.Model.*;
+import com.libraryApp.Model.Base;
+import com.libraryApp.Model.Item;
+import com.libraryApp.Model.User;
 
 
 public class Database {
@@ -21,7 +21,7 @@ public class Database {
 
     public Database() {
         try {
-            /*List<Base> users = new ArrayList<>();
+            List<Base> users = new ArrayList<>();
             List<Base> items = new ArrayList<>();
 
             users.add(new User(1,"Admin", "123", "Admin", "Lastname", LocalDate.now()));
@@ -31,7 +31,7 @@ public class Database {
             items.add(new Item(2, "Test book 2", "Test author 2"));
 
             insert(users, USERS_FILE);
-            insert(items, ITEMS_FILE);*/
+            insert(items, ITEMS_FILE);
         } catch (Exception ex) {
             System.out.println("error");
             System.out.println(ex.getMessage());
@@ -128,7 +128,6 @@ public class Database {
             while (true) objects.add(in.readObject());
         } catch (EOFException ex) {}
         catch (Exception ex) {
-            System.out.println(ex.getMessage());
             throw new Exception("Not able to load objects");
         }
 
