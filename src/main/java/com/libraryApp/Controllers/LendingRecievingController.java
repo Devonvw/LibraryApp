@@ -44,13 +44,12 @@ public class LendingRecievingController implements Initializable {
             int itemId = Integer.parseInt(itemCodeLendInput.getText());
             int memberId = Integer.parseInt(memberIdLendInput.getText());
 
-            Database.lendItem(itemId, memberId);
-
             itemCodeLendInput.setText("");
             memberIdLendInput.setText("");
+
+            Database.lendItem(itemId, memberId);
+
             setSuccessMsg(msgLblLend, "Item is lent");
-
-
         }
         catch (NumberFormatException ex){
             setErrorMsg(msgLblLend, "Item code or member identifier doesn't contain a correct number");
@@ -66,9 +65,10 @@ public class LendingRecievingController implements Initializable {
 
             int itemId = Integer.parseInt(itemCodeRecieveInput.getText());
 
+            itemCodeRecieveInput.setText("");
+
             Database.recieveItem(itemId);
 
-            itemCodeRecieveInput.setText("");
             setSuccessMsg(msgLblRecieve, "Item recieved");
 
             Timer tm = new Timer();
