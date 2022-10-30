@@ -38,8 +38,6 @@ public class MembersController implements Initializable {
     @FXML
     private TableColumn<User, String> editCol;
     @FXML
-    private Label welcomeLbl;
-    @FXML
     private TextField searchInput;
     @FXML
     private Button addBtn;
