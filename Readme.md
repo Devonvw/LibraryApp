@@ -4,4 +4,4 @@ Login
 
 User: Admin 
 
-Password: passwordAdmin123
+Password: 123
