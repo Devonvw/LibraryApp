@@ -16,14 +16,17 @@ public class User implements java.io.Serializable, Base {
     public User() {
         setId(0);
     }
+
     public User(int id) {
         setId(id);
     }
+
     public User(String username, String password) {
         setId(0);
         setUsername(username);
         setPassword(password);
     }
+
     public User(String username, String password, String firstname, String lastname, LocalDate birthdate) {
         setId(0);
         setUsername(username);
@@ -32,6 +35,7 @@ public class User implements java.io.Serializable, Base {
         setLastname(lastname);
         setBirthdate(birthdate);
     }
+
     public User(int id, String username, String password, String firstname, String lastname, LocalDate birthdate) {
         setId(id);
         setUsername(username);
@@ -43,9 +47,18 @@ public class User implements java.io.Serializable, Base {
 
 
     //Setters
-    public void setUsername(String username) { this.username = username; }
-    public void setPassword(String password) { this.password = password; }
-    public void setId(int id) { this.id = id; }
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public void setFirstname(String firstname) {
         this.firstname = firstname;
     }
@@ -59,15 +72,26 @@ public class User implements java.io.Serializable, Base {
     }
 
     //Getters
-    public String getPassword() { return password; }
-    public String getUsername() { return username; }
-    public int getId() { return id; }
+    public String getPassword() {
+        return password;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public int getId() {
+        return id;
+    }
+
     public String getFirstname() {
         return firstname;
     }
+
     public String getLastname() {
         return lastname;
     }
+
     public LocalDate getBirthdate() {
         return birthdate;
     }

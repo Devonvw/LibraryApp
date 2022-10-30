@@ -1,7 +1,7 @@
 package com.libraryApp.Controllers;
 
-import com.libraryApp.Model.Item;
 import com.libraryApp.Model.DialogMode;
+import com.libraryApp.Model.Item;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -24,6 +24,8 @@ public class CollectionModalController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         dialogPane.setExpandableContent(null);
+        dialogPane.lookupButton(ButtonType.OK).getStyleClass().add("outlineBtn");
+        dialogPane.lookupButton(ButtonType.CANCEL).getStyleClass().add("whiteBtn");
     }
 
     public void setItem(Item item, DialogMode mode) {
@@ -31,12 +33,11 @@ public class CollectionModalController implements Initializable {
         titleInput.setText(item.getTitle());
         authorInput.setText(item.getAuthor());
 
-        Button okBtn = (Button)dialogPane.lookupButton(ButtonType.OK);
+        Button okBtn = (Button) dialogPane.lookupButton(ButtonType.OK);
         okBtn.addEventFilter(ActionEvent.ACTION, e -> {
-            if (!validateInput()){
+            if (!validateInput()) {
                 e.consume();
-            }
-            else {
+            } else {
                 this.item.setTitle(titleInput.getText());
                 this.item.setAuthor(authorInput.getText());
             }

@@ -1,6 +1,6 @@
 package com.libraryApp.Controllers;
 
-import com.libraryApp.DAL.Database;
+import com.libraryApp.DAL.UserDAO;
 import com.libraryApp.Model.DialogMode;
 import com.libraryApp.Model.User;
 import javafx.collections.FXCollections;
@@ -49,7 +49,7 @@ public class MembersController implements Initializable {
 
     public MembersController() {
         try {
-            users = Database.loadUsers();
+            users = UserDAO.loadUsers();
             usersObservableArray.setAll(FXCollections.observableArrayList(users));
         } catch (Exception ex) {
 
@@ -59,79 +59,79 @@ public class MembersController implements Initializable {
     public ObservableList<User> getUsersObservableArray() {
         return usersObservableArray;
     }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        try {
-            addBtn.setOnAction(e -> onAddUpdateClick(e, new User()));
-            deleteCol.setCellFactory(tc -> new TableCell<User, String>() {
-                final Button btn = new Button("");
-                final FontIcon icon = new FontIcon();
-                @Override
-                public void updateItem(String item, boolean empty) {
-                    super.updateItem(item, empty);
-                    if (empty) {
-                        setGraphic(null);
-                        setText(null);
-                    } else {
-                        icon.setIconLiteral("fa-trash-o");
-                        icon.setIconColor(Paint.valueOf("red"));
-                        btn.setGraphic(icon);
-                        btn.getStyleClass().add("iconBtn");
-                        btn.setCursor(Cursor.HAND);
-                        btn.setOnAction(e -> {
-                            try {
-                                User userClicked = getTableView().getItems().get(getIndex());
-                                Database.deleteUser(users, userClicked.getId());
+        addBtn.setOnAction(e -> onAddUpdateClick(e, new User()));
+        deleteCol.setCellFactory(tc -> new TableCell<User, String>() {
+            final Button btn = new Button("");
+            final FontIcon icon = new FontIcon();
 
-                                users = Database.loadUsers();
-                                usersObservableArray.setAll(FXCollections.observableArrayList(users));
-                            }
-                            catch (Exception ex) {}
-                        });
-                        setGraphic(btn);
-                        setText(null);
-                    }
-                }
-            });
-
-            editCol.setCellFactory(tc -> new TableCell<User, String>() {
-                final Button btn = new Button("");
-                final FontIcon icon = new FontIcon();
-                @Override
-                public void updateItem(String item, boolean empty) {
-                    super.updateItem(item, empty);
-                    if (empty) {
-                        setGraphic(null);
-                        setText(null);
-                    } else {
-                        icon.setIconLiteral("fa-pencil");
-                        btn.setGraphic(icon);
-                        btn.getStyleClass().add("iconBtn");
-                        btn.setCursor(Cursor.HAND);
-                        btn.setOnAction(e -> {
+            @Override
+            public void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                    setText(null);
+                } else {
+                    icon.setIconLiteral("fa-trash-o");
+                    icon.setIconColor(Paint.valueOf("red"));
+                    btn.setGraphic(icon);
+                    btn.getStyleClass().add("iconBtn");
+                    btn.setCursor(Cursor.HAND);
+                    btn.setOnAction(e -> {
+                        try {
                             User userClicked = getTableView().getItems().get(getIndex());
-                            onAddUpdateClick(e, userClicked);
-                        });
-                        setGraphic(btn);
-                        setText(null);
-                    }
+                            UserDAO.deleteUser(users, userClicked.getId());
+
+                            users = UserDAO.loadUsers();
+                            usersObservableArray.setAll(FXCollections.observableArrayList(users));
+                        } catch (Exception ex) {
+                        }
+                    });
+                    setGraphic(btn);
+                    setText(null);
                 }
-            });
+            }
+        });
 
-            identifierCol.setCellValueFactory(new PropertyValueFactory<User, Integer>("id"));
-            firstNameCol.setCellValueFactory(new PropertyValueFactory<User, String>("firstname"));
-            lastNameCol.setCellValueFactory(new PropertyValueFactory<User, String>("lastname"));
-            birthDateCol.setCellValueFactory(new PropertyValueFactory<User, LocalDate>("birthdate"));
-            deleteCol.setCellValueFactory(new PropertyValueFactory<>(""));
-            editCol.setCellValueFactory(new PropertyValueFactory<>(""));
+        editCol.setCellFactory(tc -> new TableCell<User, String>() {
+            final Button btn = new Button("");
+            final FontIcon icon = new FontIcon();
 
-            searchInput.textProperty().addListener((obs, oldText, newText) -> {
-                usersObservableArray.setAll(users.stream().filter(i -> i.getFirstname().toLowerCase().contains(newText.toLowerCase()) || i.getLastname().toLowerCase().contains(newText.toLowerCase())).collect(Collectors.toList()));
-            });
-        } catch (Exception ex) {
+            @Override
+            public void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                    setText(null);
+                } else {
+                    icon.setIconLiteral("fa-pencil");
+                    btn.setGraphic(icon);
+                    btn.getStyleClass().add("iconBtn");
+                    btn.setCursor(Cursor.HAND);
+                    btn.setOnAction(e -> {
+                        User userClicked = getTableView().getItems().get(getIndex());
+                        onAddUpdateClick(e, userClicked);
+                    });
+                    setGraphic(btn);
+                    setText(null);
+                }
+            }
+        });
 
-        }
+        identifierCol.setCellValueFactory(new PropertyValueFactory<User, Integer>("id"));
+        firstNameCol.setCellValueFactory(new PropertyValueFactory<User, String>("firstname"));
+        lastNameCol.setCellValueFactory(new PropertyValueFactory<User, String>("lastname"));
+        birthDateCol.setCellValueFactory(new PropertyValueFactory<User, LocalDate>("birthdate"));
+        deleteCol.setCellValueFactory(new PropertyValueFactory<>(""));
+        editCol.setCellValueFactory(new PropertyValueFactory<>(""));
+
+        searchInput.textProperty().addListener((obs, oldText, newText) -> {
+            usersObservableArray.setAll(users.stream().filter(i -> i.getFirstname().toLowerCase().contains(newText.toLowerCase()) || i.getLastname().toLowerCase().contains(newText.toLowerCase())).collect(Collectors.toList()));
+        });
     }
+
     public void onAddUpdateClick(ActionEvent e, User user) {
         DialogMode mode;
         String dialogTitle = "";
@@ -139,8 +139,7 @@ public class MembersController implements Initializable {
         if (user.getId() == 0) {
             mode = DialogMode.ADD;
             dialogTitle = "Add user";
-        }
-        else {
+        } else {
             mode = DialogMode.UPDATE;
             dialogTitle = "Update user";
         }
@@ -160,10 +159,10 @@ public class MembersController implements Initializable {
             Optional<ButtonType> clickedBtn = dialog.showAndWait();
 
             if (clickedBtn.get() == ButtonType.OK) {
-                if (mode == DialogMode.ADD) Database.insertUserWithoutId(users, modalController.user);
-                else Database.updateUser(users, modalController.user);
+                if (mode == DialogMode.ADD) UserDAO.insertUserWithoutId(users, modalController.user);
+                else UserDAO.updateUser(users, modalController.user);
 
-                users = Database.loadUsers();
+                users = UserDAO.loadUsers();
                 usersObservableArray.setAll(FXCollections.observableArrayList(users));
             }
         } catch (Exception ex) {

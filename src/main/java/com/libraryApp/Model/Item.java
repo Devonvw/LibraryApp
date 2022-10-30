@@ -25,16 +25,19 @@ public class Item implements java.io.Serializable, Base {
         setId(0);
         setAvailable(true);
     }
+
     public Item(int id) {
         setId(id);
         setAvailable(true);
     }
+
     public Item(String title, String author) {
         setId(0);
         setTitle(title);
         setAuthor(author);
         setAvailable(true);
     }
+
     public Item(int id, String title, String author) {
         setId(id);
         setTitle(title);
@@ -47,27 +50,61 @@ public class Item implements java.io.Serializable, Base {
         setLendDate(LocalDateTime.now());
         setAvailable(false);
     }
-    public void recieve() {
+
+    public void receive() {
         setLendUser(null);
         setLendDate(null);
         setAvailable(true);
     }
 
 
-
     //Setters
-    public void setAvailable(Boolean available) { this.available = available; }
-    public void setTitle(String title) { this.title = title; }
-    public void setAuthor(String author) { this.author = author; }
-    public void setLendDate(LocalDateTime lendDate) { this.lendDate = lendDate; }
-    public void setLendUser(User user) { this.lendUser = user; }
-    public void setId(int id) { this.id = id; }
+    public void setAvailable(Boolean available) {
+        this.available = available;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public void setLendDate(LocalDateTime lendDate) {
+        this.lendDate = lendDate;
+    }
+
+    public void setLendUser(User user) {
+        this.lendUser = user;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     //Getters
-    public Boolean getAvailable() { return available; }
-    public String getTitle() { return title; }
-    public String getAuthor() { return author; }
-    public LocalDateTime getLendDate() { return lendDate; }
-    public User getLendUser() { return lendUser; }
-    public int getId() { return id; }
+    public Boolean getAvailable() {
+        return available;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public LocalDateTime getLendDate() {
+        return lendDate;
+    }
+
+    public User getLendUser() {
+        return lendUser;
+    }
+
+    public int getId() {
+        return id;
+    }
 }

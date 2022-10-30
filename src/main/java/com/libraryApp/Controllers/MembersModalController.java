@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
 import java.net.URL;
+import java.time.format.DateTimeParseException;
 import java.util.ResourceBundle;
 
 public class MembersModalController implements Initializable {
@@ -35,41 +36,52 @@ public class MembersModalController implements Initializable {
         lastNameInput.setText(user.getLastname());
         birthDateInput.setValue(user.getBirthdate());
 
-        Button okBtn = (Button)dialogPane.lookupButton(ButtonType.OK);
+        Button okBtn = (Button) dialogPane.lookupButton(ButtonType.OK);
         okBtn.addEventFilter(ActionEvent.ACTION, e -> {
-            if (!validateInput()){
+            if (!validateInput()) {
                 e.consume();
-            }
-            else {
+            } else {
                 this.user.setFirstname(firstNameInput.getText());
                 this.user.setLastname(lastNameInput.getText());
-                this.user.setBirthdate(birthDateInput.getValue());
+                if ((birthDateInput.getEditor().getText() == null || birthDateInput.getEditor().getText().isEmpty()))
+                    this.user.setBirthdate(birthDateInput.getValue());
+                else
+                    this.user.setBirthdate(birthDateInput.getConverter().fromString(birthDateInput.getEditor().getText()));
             }
         });
     }
 
     private boolean validateInput() {
-        if ((firstNameInput.getText() == null || firstNameInput.getText().isEmpty())) {
-            UserFeedback.setErrorMsg(msgLabel, "First name cannot be empty!");
-            return false;
-        }
-        else if ((lastNameInput.getText() == null || lastNameInput.getText().isEmpty())) {
-            UserFeedback.setErrorMsg(msgLabel, "Last name cannot be empty!");
-            return false;
-        }
-        else if (birthDateInput.getValue() == null) {
-            if ((birthDateInput.getEditor().getText() == null || birthDateInput.getEditor().getText().isEmpty())) {
+        System.out.println(birthDateInput.getValue());
+
+        try {
+            if ((firstNameInput.getText() == null || firstNameInput.getText().isEmpty())) {
+                UserFeedback.setErrorMsg(msgLabel, "First name cannot be empty!");
+                return false;
+            } else if ((lastNameInput.getText() == null || lastNameInput.getText().isEmpty())) {
+                UserFeedback.setErrorMsg(msgLabel, "Last name cannot be empty!");
+                return false;
+            } else if (birthDateInput.getValue() == null) {
+                if ((birthDateInput.getEditor().getText() == null || birthDateInput.getEditor().getText().isEmpty())) {
+                    UserFeedback.setErrorMsg(msgLabel, "Birth date cannot be empty!");
+                    return false;
+                } else if (birthDateInput.getConverter().fromString(birthDateInput.getEditor().getText()) == null) {
+                    UserFeedback.setErrorMsg(msgLabel, "Birth date is not in correct format!");
+                    return false;
+                }
+            } else if ((birthDateInput.getEditor().getText() == null || birthDateInput.getEditor().getText().isEmpty())) {
                 UserFeedback.setErrorMsg(msgLabel, "Birth date cannot be empty!");
                 return false;
             }
-            else if (birthDateInput.getConverter().fromString(birthDateInput.getEditor().getText()) == null){
-                UserFeedback.setErrorMsg(msgLabel, "Birth date is not ibn correct format!");
-                return false;
-            }
-            UserFeedback.setErrorMsg(msgLabel, "Birth date cannot be empty!");
+
+            UserFeedback.resetMsg(msgLabel);
+            return true;
+        } catch (DateTimeParseException ex) {
+            UserFeedback.setErrorMsg(msgLabel, "Birth date is not in correct format!");
+            return false;
+        } catch (Exception ex) {
+            UserFeedback.setErrorMsg(msgLabel, "Not able to validate input");
             return false;
         }
-        UserFeedback.resetMsg(msgLabel);
-        return true;
     }
 }

@@ -11,11 +11,13 @@ public class UserFeedback {
         label.setStyle("-fx-background-color: rgba(220, 38, 38, 0.2); -fx-text-fill: red;");
         resetMsg(label);
     }
+
     public static void setSuccessMsg(Label label, String msg) {
         label.setText(msg);
         label.setStyle("-fx-background-color: rgba(110, 136, 13, 0.2); -fx-text-fill: #15803d;");
         resetMsg(label);
     }
+
     public static void resetMsg(Label label) {
         Timeline tm = new Timeline(new KeyFrame(Duration.seconds(3), t -> {
             label.setText("");

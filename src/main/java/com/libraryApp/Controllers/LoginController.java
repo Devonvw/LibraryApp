@@ -1,8 +1,7 @@
 package com.libraryApp.Controllers;
 
-import com.libraryApp.DAL.Database;
+import com.libraryApp.DAL.UserDAO;
 import com.libraryApp.Model.User;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -22,17 +21,17 @@ public class LoginController {
     @FXML
     private PasswordField passwordInput;
 
-    private Database database;
+    private final UserDAO userDao;
 
     public LoginController() {
-        database = new Database();
+        userDao = new UserDAO();
     }
 
-    public void onLoginButtonClick(ActionEvent e) {
+    public void onLoginButtonClick() {
         try {
-            database.login(new User(usernameInput.getText(), passwordInput.getText()));
+            UserDAO.login(new User(usernameInput.getText(), passwordInput.getText()));
 
-            Stage loginStage = (Stage)msgLabel.getScene().getWindow();
+            Stage loginStage = (Stage) msgLabel.getScene().getWindow();
             loginStage.close();
 
             //Load main window
@@ -41,7 +40,6 @@ public class LoginController {
             mainStage.setScene(new Scene(root));
             mainStage.show();
         } catch (Exception ex) {
-            System.out.println(ex.getMessage());
             msgLabel.setText(ex.getMessage());
         }
     }

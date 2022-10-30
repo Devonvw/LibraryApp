@@ -1,8 +1,8 @@
 package com.libraryApp.Controllers;
 
-import com.libraryApp.Model.Item;
-import com.libraryApp.DAL.Database;
+import com.libraryApp.DAL.ItemDAO;
 import com.libraryApp.Model.DialogMode;
+import com.libraryApp.Model.Item;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -53,7 +53,7 @@ public class CollectionController implements Initializable {
 
     public CollectionController() {
         try {
-            items = Database.loadItems();
+            items = ItemDAO.loadItems();
             itemsObservableArray.setAll(FXCollections.observableArrayList(items));
         } catch (Exception ex) {
 
@@ -66,87 +66,84 @@ public class CollectionController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        try {
-            addBtn.setOnAction(e -> onAddUpdateClick(e, new Item()));
+        addBtn.setOnAction(e -> onAddUpdateClick(e, new Item()));
 
-            availableCol.setCellFactory(tc -> new TableCell<Item, Boolean>() {
-                @Override
-                protected void updateItem(Boolean item, boolean empty) {
-                    super.updateItem(item, empty);
-                    setText(empty ? null :
-                            item.booleanValue() ? "Yes" : "No");
-                }
-            });
+        availableCol.setCellFactory(tc -> new TableCell<Item, Boolean>() {
+            @Override
+            protected void updateItem(Boolean item, boolean empty) {
+                super.updateItem(item, empty);
+                setText(empty ? null :
+                        item.booleanValue() ? "Yes" : "No");
+            }
+        });
 
-            deleteCol.setCellFactory(tc -> new TableCell<Item, String>() {
-                final Button btn = new Button("");
-                final FontIcon icon = new FontIcon();
-                @Override
-                public void updateItem(String item, boolean empty) {
-                    super.updateItem(item, empty);
-                    if (empty) {
-                        setGraphic(null);
-                        setText(null);
-                    } else {
-                        icon.setIconLiteral("fa-trash-o");
-                        icon.setIconColor(Paint.valueOf("red"));
-                        btn.setGraphic(icon);
-                        btn.getStyleClass().add("iconBtn");
-                        btn.setCursor(Cursor.HAND);
-                        btn.setOnAction(e -> {
-                            try {
-                                Item itemClicked = getTableView().getItems().get(getIndex());
-                                Database.deleteItem(items, itemClicked.getId());
+        deleteCol.setCellFactory(tc -> new TableCell<Item, String>() {
+            final Button btn = new Button("");
+            final FontIcon icon = new FontIcon();
 
-                                items = Database.loadItems();
-                                itemsObservableArray.setAll(FXCollections.observableArrayList(items));
-                            }
-                            catch (Exception ex) {}
-                        });
-                        setGraphic(btn);
-                        setText(null);
-                    }
-                }
-            });
-
-            editCol.setCellFactory(tc -> new TableCell<Item, String>() {
-                final Button btn = new Button("");
-                final FontIcon icon = new FontIcon();
-                @Override
-                public void updateItem(String item, boolean empty) {
-                    super.updateItem(item, empty);
-                    if (empty) {
-                        setGraphic(null);
-                        setText(null);
-                    } else {
-                        icon.setIconLiteral("fa-pencil");
-                        btn.setGraphic(icon);
-                        btn.getStyleClass().add("iconBtn");
-                        btn.setCursor(Cursor.HAND);
-                        btn.setOnAction(e -> {
+            @Override
+            public void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                    setText(null);
+                } else {
+                    icon.setIconLiteral("fa-trash-o");
+                    icon.setIconColor(Paint.valueOf("red"));
+                    btn.setGraphic(icon);
+                    btn.getStyleClass().add("iconBtn");
+                    btn.setCursor(Cursor.HAND);
+                    btn.setOnAction(e -> {
+                        try {
                             Item itemClicked = getTableView().getItems().get(getIndex());
-                            System.out.println(itemClicked.getTitle());
-                            onAddUpdateClick(e, itemClicked);
-                        });
-                        setGraphic(btn);
-                        setText(null);
-                    }
+                            ItemDAO.deleteItem(items, itemClicked.getId());
+
+                            items = ItemDAO.loadItems();
+                            itemsObservableArray.setAll(FXCollections.observableArrayList(items));
+                        } catch (Exception ex) {
+                        }
+                    });
+                    setGraphic(btn);
+                    setText(null);
                 }
-            });
+            }
+        });
 
-            itemCodeCol.setCellValueFactory(new PropertyValueFactory<Item, Integer>("id"));
-            availableCol.setCellValueFactory(new PropertyValueFactory<Item, Boolean>("available"));
-            titleCol.setCellValueFactory(new PropertyValueFactory<Item, String>("title"));
-            authorCol.setCellValueFactory(new PropertyValueFactory<Item, String>("author"));
-            deleteCol.setCellValueFactory(new PropertyValueFactory<>(""));
-            editCol.setCellValueFactory(new PropertyValueFactory<>(""));
+        editCol.setCellFactory(tc -> new TableCell<Item, String>() {
+            final Button btn = new Button("");
+            final FontIcon icon = new FontIcon();
 
-            searchInput.textProperty().addListener((obs, oldText, newText) -> {
-                itemsObservableArray.setAll(items.stream().filter(i -> i.getTitle().toLowerCase().contains(newText.toLowerCase()) || i.getAuthor().toLowerCase().contains(newText.toLowerCase())).collect(Collectors.toList()));
-            });
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-        }
+            @Override
+            public void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                    setText(null);
+                } else {
+                    icon.setIconLiteral("fa-pencil");
+                    btn.setGraphic(icon);
+                    btn.getStyleClass().add("iconBtn");
+                    btn.setCursor(Cursor.HAND);
+                    btn.setOnAction(e -> {
+                        Item itemClicked = getTableView().getItems().get(getIndex());
+                        onAddUpdateClick(e, itemClicked);
+                    });
+                    setGraphic(btn);
+                    setText(null);
+                }
+            }
+        });
+
+        itemCodeCol.setCellValueFactory(new PropertyValueFactory<Item, Integer>("id"));
+        availableCol.setCellValueFactory(new PropertyValueFactory<Item, Boolean>("available"));
+        titleCol.setCellValueFactory(new PropertyValueFactory<Item, String>("title"));
+        authorCol.setCellValueFactory(new PropertyValueFactory<Item, String>("author"));
+        deleteCol.setCellValueFactory(new PropertyValueFactory<>(""));
+        editCol.setCellValueFactory(new PropertyValueFactory<>(""));
+
+        searchInput.textProperty().addListener((obs, oldText, newText) -> {
+            itemsObservableArray.setAll(items.stream().filter(i -> i.getTitle().toLowerCase().contains(newText.toLowerCase()) || i.getAuthor().toLowerCase().contains(newText.toLowerCase())).collect(Collectors.toList()));
+        });
     }
 
     public void onAddUpdateClick(ActionEvent e, Item item) {
@@ -156,8 +153,7 @@ public class CollectionController implements Initializable {
         if (item.getId() == 0) {
             mode = DialogMode.ADD;
             dialogTitle = "Add item";
-        }
-        else {
+        } else {
             mode = DialogMode.UPDATE;
             dialogTitle = "Update item";
         }
@@ -177,10 +173,10 @@ public class CollectionController implements Initializable {
             Optional<ButtonType> clickedBtn = dialog.showAndWait();
 
             if (clickedBtn.get() == ButtonType.OK) {
-                if (mode == DialogMode.ADD) Database.insertItemWithoutId(items, modalController.item);
-                else Database.updateItem(items, modalController.item);
+                if (mode == DialogMode.ADD) ItemDAO.insertItemWithoutId(items, modalController.item);
+                else ItemDAO.updateItem(items, modalController.item);
 
-                items = Database.loadItems();
+                items = ItemDAO.loadItems();
                 itemsObservableArray.setAll(FXCollections.observableArrayList(items));
             }
         } catch (Exception ex) {
