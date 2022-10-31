@@ -16,6 +16,8 @@ import javafx.scene.paint.Paint;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -36,7 +38,8 @@ public class CollectionController implements Initializable {
 
     @FXML
     private TableColumn<Item, String> titleCol;
-
+    @FXML
+    private TableColumn<Item, LocalDateTime> expectedReturnDate;
     @FXML
     private TableColumn<Item, String> deleteCol;
     @FXML
@@ -74,6 +77,17 @@ public class CollectionController implements Initializable {
                 super.updateItem(item, empty);
                 setText(empty ? null :
                         item.booleanValue() ? "Yes" : "No");
+            }
+        });
+
+        expectedReturnDate.setCellFactory(tc -> new TableCell<Item, LocalDateTime>() {
+            @Override
+            protected void updateItem(LocalDateTime item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null)
+                    setText(null);
+                else
+                    setText(item.toLocalDate().plusDays(21).toString());
             }
         });
 
@@ -137,6 +151,7 @@ public class CollectionController implements Initializable {
         itemCodeCol.setCellValueFactory(new PropertyValueFactory<Item, Integer>("id"));
         availableCol.setCellValueFactory(new PropertyValueFactory<Item, Boolean>("available"));
         titleCol.setCellValueFactory(new PropertyValueFactory<Item, String>("title"));
+        expectedReturnDate.setCellValueFactory(new PropertyValueFactory<Item, LocalDateTime>("lendDate"));
         authorCol.setCellValueFactory(new PropertyValueFactory<Item, String>("author"));
         deleteCol.setCellValueFactory(new PropertyValueFactory<>(""));
         editCol.setCellValueFactory(new PropertyValueFactory<>(""));

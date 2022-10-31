@@ -11,6 +11,7 @@ import java.io.ObjectOutputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,12 +29,14 @@ public class Database {
                 users.add(new User(2, "Joost", "123", "Joost", "Smit", LocalDate.now()));
                 insert(users, USERS_FILE);
             }
-            if (!Files.exists(Paths.get(ITEMS_FILE)) || loadBase(ITEMS_FILE).stream().count() == 0) {
+            //if (!Files.exists(Paths.get(ITEMS_FILE)) || loadBase(ITEMS_FILE).stream().count() == 0) {
                 List<Base> items = new ArrayList<>();
                 items.add(new Item(1, "Test book 1", "Test author 1"));
                 items.add(new Item(2, "Test book 2", "Test author 2"));
+                items.add(new Item(3, "Test book 3", "Test author 3", LocalDateTime.of(2022, 10, 4, 0, 0)));
+                items.add(new Item(4, "Test book 4", "Test author 4", LocalDateTime.of(2022, 10, 1, 0, 0)));
                 insert(items, ITEMS_FILE);
-            }
+            //}
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }

@@ -2,11 +2,14 @@ package com.libraryApp.DAL;
 
 import com.libraryApp.Model.Base;
 import com.libraryApp.Model.Item;
+import com.libraryApp.Model.ToLateException;
 import com.libraryApp.Model.User;
 
 import java.time.LocalDateTime;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ItemDAO extends Database {
     public static void lendItem(int itemId, int memberId) throws Exception {
@@ -28,15 +31,17 @@ public class ItemDAO extends Database {
         update(itemsInput, item, ITEMS_FILE);
     }
 
-    public static void receiveItem(int itemId) throws Exception {
+    public static void receiveItem(int itemId, boolean isLate) throws Exception {
         List<Item> items = loadItems();
 
         Item item = items.stream().filter(i -> i.getId() == itemId).findFirst().orElse(null);
 
         if (item == null) throw new Exception("Item does not exist");
-        if (item.available) throw new Exception("Item is already received");
-
-        LocalDateTime lendDate = item.lendDate;
+        if (item.getAvailable()) throw new Exception("Item is already received");
+        if (!isLate && item.getLendDate().isBefore(LocalDateTime.now().minusDays(21))) {
+            int daysLate = (Period.between(item.getLendDate().toLocalDate(), LocalDateTime.now().minusDays(21).toLocalDate())).getDays();
+            throw new ToLateException("Item is late by: " + daysLate + " days" + "\nTotal fine: €" + String.format("%.2f",daysLate * 0.1));
+        }
 
         item.receive();
 
@@ -44,9 +49,6 @@ public class ItemDAO extends Database {
         for (Item i : items) itemsInput.add(i);
 
         update(itemsInput, item, ITEMS_FILE);
-
-        if (lendDate.isBefore(LocalDateTime.now().minusDays(21)))
-            throw new IllegalArgumentException("Item is received too late, but item is still received");
     }
 
     public static List<Item> loadItems() throws Exception {
@@ -55,6 +57,19 @@ public class ItemDAO extends Database {
         loadBase(ITEMS_FILE).forEach((object) -> items.add((Item) object));
 
         return items;
+    }
+
+    public static void insertItem(List<Item> newData) throws Exception {
+        List<Base> dataBase = new ArrayList<>(loadItems());
+        List<Integer> ids = dataBase.stream().map(item -> item.getId()).toList();
+
+        for (Item item: newData) {
+             if (ids.contains(item.getId())) throw new Exception("Item id " + item.getId() + " already exists!");
+        };
+
+        dataBase.addAll(newData);
+
+        insert(dataBase, ITEMS_FILE);
     }
 
     public static void updateItem(List<Item> data, Item newData) throws Exception {

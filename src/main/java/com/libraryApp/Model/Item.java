@@ -1,5 +1,6 @@
 package com.libraryApp.Model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Item implements java.io.Serializable, Base {
@@ -43,6 +44,14 @@ public class Item implements java.io.Serializable, Base {
         setTitle(title);
         setAuthor(author);
         setAvailable(true);
+    }
+
+    public Item(int id, String title, String author, LocalDateTime lendDate) {
+        setId(id);
+        setTitle(title);
+        setAuthor(author);
+        setAvailable(false);
+        setLendDate(lendDate);
     }
 
     public void lend(User user) {

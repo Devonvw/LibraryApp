@@ -56,31 +56,31 @@ public class MembersModalController implements Initializable {
 
         try {
             if ((firstNameInput.getText() == null || firstNameInput.getText().isEmpty())) {
-                UserFeedback.setErrorMsg(msgLabel, "First name cannot be empty!");
+                UserFeedback.setErrorMsg(msgLabel, "First name cannot be empty!", false);
                 return false;
             } else if ((lastNameInput.getText() == null || lastNameInput.getText().isEmpty())) {
-                UserFeedback.setErrorMsg(msgLabel, "Last name cannot be empty!");
+                UserFeedback.setErrorMsg(msgLabel, "Last name cannot be empty!", false);
                 return false;
             } else if (birthDateInput.getValue() == null) {
                 if ((birthDateInput.getEditor().getText() == null || birthDateInput.getEditor().getText().isEmpty())) {
-                    UserFeedback.setErrorMsg(msgLabel, "Birth date cannot be empty!");
+                    UserFeedback.setErrorMsg(msgLabel, "Birth date cannot be empty!", false);
                     return false;
                 } else if (birthDateInput.getConverter().fromString(birthDateInput.getEditor().getText()) == null) {
-                    UserFeedback.setErrorMsg(msgLabel, "Birth date is not in correct format!");
+                    UserFeedback.setErrorMsg(msgLabel, "Birth date is not in correct format!", false);
                     return false;
                 }
             } else if ((birthDateInput.getEditor().getText() == null || birthDateInput.getEditor().getText().isEmpty())) {
-                UserFeedback.setErrorMsg(msgLabel, "Birth date cannot be empty!");
+                UserFeedback.setErrorMsg(msgLabel, "Birth date cannot be empty!", false);
                 return false;
             }
 
-            UserFeedback.resetMsg(msgLabel);
+            UserFeedback.resetMsg(msgLabel, 5);
             return true;
         } catch (DateTimeParseException ex) {
-            UserFeedback.setErrorMsg(msgLabel, "Birth date is not in correct format!");
+            UserFeedback.setErrorMsg(msgLabel, "Birth date is not in correct format!", false);
             return false;
         } catch (Exception ex) {
-            UserFeedback.setErrorMsg(msgLabel, "Not able to validate input");
+            UserFeedback.setErrorMsg(msgLabel, "Not able to validate input", false);
             return false;
         }
     }

@@ -20,7 +20,7 @@
                   <Insets bottom="20.0" top="20.0" />
                </padding>
             </Label>
-            <Button fx:id="lendingReceivingBtn" defaultButton="true" mnemonicParsing="false" onAction="#onClickLendingReceiving" prefHeight="36.0" prefWidth="203.0" style="-fx-background-color: white; -fx-text-fill: #0d9488;" styleClass="navBtn" text="Lending/Receiving">
+            <Button fx:id="lendingReceivingBtn" defaultButton="true" mnemonicParsing="false" onAction="#onClickNavBtn" prefHeight="36.0" prefWidth="203.0" style="-fx-background-color: white; -fx-text-fill: #0d9488;" styleClass="navBtn" text="Lending/Receiving">
                <graphic>
                   <FontIcon styleClass="navBtnIcon" iconColor="#fff" iconLiteral="fa-exchange" />
                </graphic>
@@ -28,7 +28,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="collectionBtn" defaultButton="true" mnemonicParsing="false" onAction="#onClickCollection" prefHeight="36.0" prefWidth="203.0" styleClass="navBtn" text="Collection">
+            <Button fx:id="collectionBtn" defaultButton="true" mnemonicParsing="false" onAction="#onClickNavBtn" prefHeight="36.0" prefWidth="203.0" styleClass="navBtn" text="Collection">
                <graphic>
                   <FontIcon styleClass="navBtnIcon" iconColor="#fff" iconLiteral="fa-th-list" />
                </graphic>
@@ -36,7 +36,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="membersBtn" defaultButton="true" mnemonicParsing="false" onAction="#onClickMembers" prefHeight="36.0" prefWidth="203.0" styleClass="navBtn" text="Members">
+            <Button fx:id="membersBtn" defaultButton="true" mnemonicParsing="false" onAction="#onClickNavBtn" prefHeight="36.0" prefWidth="203.0" styleClass="navBtn" text="Members">
                <graphic>
                   <FontIcon styleClass="navBtnIcon" iconColor="#fff" iconLiteral="fa-users" />
                </graphic>
@@ -44,6 +44,18 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
+            <Button fx:id="importItemsBtn" defaultButton="true" mnemonicParsing="false" onAction="#onClickNavBtn" prefHeight="36.0" prefWidth="203.0" styleClass="navBtn" text="Import items">
+               <graphic>
+                  <FontIcon styleClass="navBtnIcon" iconColor="#fff" iconLiteral="fa-upload" />
+               </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Label fx:id="msgLblImport" layoutX="23.0" layoutY="182.0" prefHeight="26.0" prefWidth="203.0">
+               <padding>
+                  <Insets left="6.0" />
+               </padding></Label>
          </children>
       </VBox>
    </left>

@@ -16,8 +16,9 @@
         <columns>
           <TableColumn fx:id="itemCodeCol" prefWidth="75.0" text="Item code" />
           <TableColumn fx:id="availableCol" prefWidth="75.0" text="Available" />
-            <TableColumn fx:id="titleCol" prefWidth="310.0" text="Title" />
-            <TableColumn fx:id="authorCol" minWidth="0.0" prefWidth="190.0" text="Author" />
+            <TableColumn fx:id="titleCol" prefWidth="150.0" text="Title" />
+            <TableColumn fx:id="authorCol" minWidth="0.0" prefWidth="150.0" text="Author" />
+            <TableColumn fx:id="expectedReturnDate" prefWidth="200.0" text="Expected return date" />
             <TableColumn fx:id="deleteCol" prefWidth="30.0" />
             <TableColumn fx:id="editCol" prefWidth="30.0" />
         </columns>
